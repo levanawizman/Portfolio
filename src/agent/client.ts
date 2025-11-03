@@ -1,7 +1,7 @@
 import { serializeState } from './serialize';
 import type { WindowState, ProjectCard } from '../state/store';
 
-const API_URL = 'http://localhost:3001';
+const API_BASE = (import.meta as any)?.env?.VITE_API_URL || '/api';
 
 export interface ToolCall {
   id: string;
@@ -28,16 +28,17 @@ export async function sendMessage(
 ): Promise<ChatResponse> {
   const state = serializeState(windows, cards);
 
-  const response = await fetch(`${API_URL}/api/chat`, {
+  const res = await fetch(`${API_BASE}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message, state }),
   });
 
-  if (!response.ok) {
-    throw new Error('Erreur serveur');
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`Erreur serveur (${res.status}): ${text}`);
   }
 
-  return response.json();
+  return res.json();
 }
 

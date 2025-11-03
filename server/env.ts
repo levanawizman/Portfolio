@@ -10,6 +10,6 @@ export const env = {
 } as const;
 
 if (!env.OPENROUTER_API_KEY) {
-  console.warn('⚠️  OPENROUTER_API_KEY manquante dans .env');
+  throw new Error('OPENROUTER_API_KEY manquante dans .env');
 }
 

@@ -9,6 +9,8 @@ export function Icon({ name, className = '' }: IconProps) {
     send: '→',
     drag: '⋮⋮',
     minimize: '−',
+    eye: '👁',
+    'eye-off': '🙈',
   };
 
   return (

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Surface } from '../ui/Surface';
 import { Icon } from '../ui/Icon';
-import { Conversation } from './Conversation';
 import { sendMessage } from '../../agent/client';
 import { useStore } from '../../state/store';
 import { useWindows, useCards } from '../../state/selectors';
+import { Preview } from './Preview';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -13,13 +13,15 @@ interface Message {
 
 export function CommandBar() {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: '👋 Bonjour ! Comment puis-je vous aider ?',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([{ role: 'assistant', content: '👋 Bonjour ! Comment allez-vous aujourd\'hui ?' }]);
+    }
+  }, [messages.length]);
 
   const windows = useWindows();
   const cards = useCards();
@@ -55,7 +57,7 @@ export function CommandBar() {
       console.error(error);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Erreur de connexion.' },
+        { role: 'assistant', content: 'Désolé, je n\'arrive pas à me connecter pour le moment.' },
       ]);
     } finally {
       setLoading(false);
@@ -76,7 +78,7 @@ export function CommandBar() {
 
   return (
     <Surface className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[600px] p-4">
-      <Conversation messages={messages} />
+      <Preview messages={messages} expanded={expanded} onToggle={() => setExpanded((v) => !v)} />
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="text"

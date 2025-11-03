@@ -69,25 +69,30 @@ export const tools = [
   },
 ];
 
-export async function chat(messages: Array<{role: string; content: string}>) {
+export async function chat(messages: Array<{ role: string; content: string }>) {
+  const body = {
+    model: MODEL,
+    messages,
+    tools,
+    tool_choice: 'auto',
+    max_tokens: 512,
+    temperature: 0.7,
+  } as const;
+
   const response = await fetch(OPENROUTER_URL, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': env.SITE_URL,
       'X-Title': env.SITE_NAME,
     },
-    body: JSON.stringify({
-      model: MODEL,
-      messages,
-      tools,
-      tool_choice: 'auto',
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
-    throw new Error(`OpenRouter error: ${response.statusText}`);
+    const errText = await response.text().catch(() => '');
+    throw new Error(`OpenRouter ${response.status} ${response.statusText} - ${errText}`);
   }
 
   return response.json();
