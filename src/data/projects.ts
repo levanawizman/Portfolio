@@ -8,6 +8,7 @@ export const initialProjects: Omit<ProjectCard, 'id'>[] = [
     tags: ['React', 'WebGL'],
     x: 60,
     y: 560,
+    rotation: -10,
     image: '/projects/portfolio.jpg',
   },
   {
@@ -16,6 +17,7 @@ export const initialProjects: Omit<ProjectCard, 'id'>[] = [
     tags: ['TypeScript', 'Storybook'],
     x: 90,
     y: 600,
+    rotation: -4,
     image: '/projects/design-system.jpg',
   },
 
@@ -26,6 +28,7 @@ export const initialProjects: Omit<ProjectCard, 'id'>[] = [
     tags: ['React Native', 'Firebase'],
     x: 1120,
     y: 560,
+    rotation: 4,
     image: '/projects/mobile-app.jpg',
   },
   {
@@ -34,6 +37,7 @@ export const initialProjects: Omit<ProjectCard, 'id'>[] = [
     tags: ['Next.js', 'Stripe'],
     x: 1150,
     y: 600,
+    rotation: 10,
     image: '/projects/ecommerce.jpg',
   },
 ];

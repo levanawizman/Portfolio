@@ -8,6 +8,9 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ card, onDrag }: ProjectCardProps) {
+  const baseRotation = card.rotation ?? 0;
+  const hoverRotation = baseRotation + (baseRotation >= 0 ? 2 : -2);
+
   return (
     <motion.div
       drag
@@ -22,9 +25,11 @@ export function ProjectCard({ card, onDrag }: ProjectCardProps) {
         top: card.y,
         width: 280,
       }}
+      initial={{ rotate: baseRotation }}
+      animate={{ rotate: baseRotation }}
       whileHover={{
         scale: 1.05,
-        rotateZ: -2,
+        rotate: hoverRotation,
         y: -8,
         boxShadow: '0 20px 60px rgba(124, 58, 237, 0.3)',
       }}

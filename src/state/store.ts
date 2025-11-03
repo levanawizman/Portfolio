@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export type WindowKind = 'markdown' | 'gallery' | 'html';
 
@@ -22,6 +21,7 @@ export interface ProjectCard {
   tags: string[];
   x: number;
   y: number;
+  rotation?: number;
   image?: string;
 }
 
@@ -38,59 +38,45 @@ interface PortfolioState {
   updateCard: (id: string, updates: Partial<ProjectCard>) => void;
 }
 
-export const useStore = create<PortfolioState>()(
-  persist(
-    (set, get) => ({
-      windows: [],
-      cards: [],
-      maxZ: 1000,
+export const useStore = create<PortfolioState>()((set, get) => ({
+  windows: [],
+  cards: [],
+  maxZ: 1000,
 
-      addWindow: (win) => {
-        const id = `win-${Date.now()}`;
-        const maxZ = get().maxZ + 1;
-        set((state) => ({
-          windows: [...state.windows, { ...win, id, zIndex: maxZ }],
-          maxZ,
-        }));
-        return id;
-      },
+  addWindow: (win) => {
+    const id = `win-${Date.now()}`;
+    const maxZ = get().maxZ + 1;
+    set((state) => ({
+      windows: [...state.windows, { ...win, id, zIndex: maxZ }],
+      maxZ,
+    }));
+    return id;
+  },
 
-      updateWindow: (id, updates) => {
-        set((state) => ({
-          windows: state.windows.map((w) =>
-            w.id === id ? { ...w, ...updates } : w
-          ),
-        }));
-      },
+  updateWindow: (id, updates) => {
+    set((state) => ({
+      windows: state.windows.map((w) => (w.id === id ? { ...w, ...updates } : w)),
+    }));
+  },
 
-      closeWindow: (id) => {
-        set((state) => ({
-          windows: state.windows.filter((w) => w.id !== id),
-        }));
-      },
+  closeWindow: (id) => {
+    set((state) => ({
+      windows: state.windows.filter((w) => w.id !== id),
+    }));
+  },
 
-      bringToFront: (id) => {
-        const maxZ = get().maxZ + 1;
-        set((state) => ({
-          windows: state.windows.map((w) =>
-            w.id === id ? { ...w, zIndex: maxZ } : w
-          ),
-          maxZ,
-        }));
-      },
+  bringToFront: (id) => {
+    const maxZ = get().maxZ + 1;
+    set((state) => ({
+      windows: state.windows.map((w) => (w.id === id ? { ...w, zIndex: maxZ } : w)),
+      maxZ,
+    }));
+  },
 
-      updateCard: (id, updates) => {
-        set((state) => ({
-          cards: state.cards.map((c) =>
-            c.id === id ? { ...c, ...updates } : c
-          ),
-        }));
-      },
-    }),
-    {
-      name: 'portfolio-state',
-      partialize: (state) => ({ cards: state.cards }),
-    }
-  )
-);
+  updateCard: (id, updates) => {
+    set((state) => ({
+      cards: state.cards.map((c) => (c.id === id ? { ...c, ...updates } : c)),
+    }));
+  },
+}));
 
