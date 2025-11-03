@@ -1,53 +1,40 @@
 import type { ProjectCard } from '../state/store';
 
 export const initialProjects: Omit<ProjectCard, 'id'>[] = [
+  // Stack gauche (dernière = au-dessus)
   {
     title: 'Portfolio Interactif',
-    description: 'Un portfolio 3D immersif avec navigation spatiale',
-    tags: ['React', 'Three.js', 'WebGL'],
-    x: 40,
-    y: 120,
+    description: 'Portfolio immersif avec navigation spatiale',
+    tags: ['React', 'WebGL'],
+    x: 60,
+    y: 560,
     image: '/projects/portfolio.jpg',
   },
   {
     title: 'Design System',
-    description: 'Système de composants réutilisables et accessibles',
-    tags: ['React', 'Storybook', 'TypeScript'],
-    x: 60,
-    y: 140,
+    description: 'Composants réutilisables, accessibles, documentés',
+    tags: ['TypeScript', 'Storybook'],
+    x: 90,
+    y: 600,
     image: '/projects/design-system.jpg',
   },
-  {
-    title: 'Dashboard Analytics',
-    description: 'Interface de visualisation de données en temps réel',
-    tags: ['Next.js', 'D3.js', 'API'],
-    x: 80,
-    y: 160,
-    image: '/projects/dashboard.jpg',
-  },
+
+  // Stack droite (dernière = au-dessus)
   {
     title: 'App Mobile',
     description: 'Application de productivité cross-platform',
-    tags: ['React Native', 'Firebase', 'Redux'],
+    tags: ['React Native', 'Firebase'],
     x: 1120,
-    y: 120,
+    y: 560,
     image: '/projects/mobile-app.jpg',
   },
   {
     title: 'E-commerce',
-    description: 'Plateforme de vente en ligne moderne et performante',
-    tags: ['Next.js', 'Stripe', 'Prisma'],
-    x: 1140,
-    y: 140,
+    description: 'Plateforme moderne et performante',
+    tags: ['Next.js', 'Stripe'],
+    x: 1150,
+    y: 600,
     image: '/projects/ecommerce.jpg',
-  },
-  {
-    title: 'Art Génératif',
-    description: 'Expériences visuelles générées par algorithme',
-    tags: ['P5.js', 'Canvas', 'Creative'],
-    x: 1160,
-    y: 160,
-    image: '/projects/generative.jpg',
   },
 ];
 
