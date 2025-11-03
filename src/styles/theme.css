@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0b0f14;
+  --color-fg: #e6e9ef;
+  --color-accent: #7c3aed;
+  --color-accent-2: #22d3ee;
+  --color-border: rgba(255, 255, 255, 0.1);
+  
+  --radius: 14px;
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-[--color-bg] text-[--color-fg] antialiased;
+  }
+}
+

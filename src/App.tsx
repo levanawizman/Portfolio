@@ -1,11 +1,18 @@
+import { WindowManager } from './components/window/WindowManager';
+import { ProjectBoard } from './components/project/ProjectBoard';
+import { CommandBar } from './components/command/CommandBar';
+import { useInitializeProjects } from './hooks/useInitializeProjects';
+
 function App() {
+  useInitializeProjects();
+
   return (
-    <main className="w-full min-h-screen flex items-center justify-center bg-white">
-      <h1 className="text-4xl font-extrabold tracking-tight text-sky-600">
-        Portfolio
-      </h1>
+    <main className="w-full h-full relative overflow-hidden">
+      <ProjectBoard />
+      <WindowManager />
+      <CommandBar />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

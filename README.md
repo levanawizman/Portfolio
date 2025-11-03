@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# Portfolio Levana
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio interactif 2D avec agent IA (Claude 3.5 Haiku via OpenRouter).
 
-Currently, two official plugins are available:
+## Fonctionnalités
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 Canvas 2D avec cartes projets déplaçables
+- 🤖 Agent conversationnel qui pilote des fenêtres de contenu
+- 🪟 Système de fenêtres draggable avec z-index dynamique
+- ✨ Animations fluides (Framer Motion)
+- 🎯 Design moderne avec Tailwind v4
+- 🔒 Sandbox sécurisé pour HTML généré par l'IA
 
-## React Compiler
+## Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+├── agent/          # Client LLM et sérialisation d'état
+├── components/     # Composants React (UI, fenêtres, projets, commande)
+├── data/           # Données fictives (bio, projets)
+├── hooks/          # Hooks React personnalisés
+├── lib/            # Utilitaires (CSP, IDs)
+├── renderer/       # Renderers de contenu (Markdown, Gallery, HTML)
+├── state/          # Store Zustand et sélecteurs
+└── styles/         # Thème et styles globaux
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+server/
+├── env.ts          # Configuration env
+├── openrouter.ts   # Client OpenRouter + tools
+├── schema.ts       # Schémas Zod
+├── routes.ts       # Routes Hono
+└── index.ts        # Serveur
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+## Configuration
+
+1. Créer un fichier `.env` (voir `.env.example`)
+2. Ajouter votre clé OpenRouter : `OPENROUTER_API_KEY=sk-...`
+
+## Lancement
+
+```bash
+# Client + Serveur en parallèle
+npm run dev:all
+
+# Ou séparément :
+npm run dev           # Client (Vite)
+npm run dev:server    # Serveur (Hono)
+```
+
+Le client démarre sur `http://localhost:5173`  
+Le serveur démarre sur `http://localhost:3001`
+
+## Utilisation
+
+1. Les cartes projets sont déplaçables à la souris
+2. La barre de commande en bas permet d'interagir avec l'agent
+3. Exemples de requêtes :
+   - "C'est qui Levana ?"
+   - "Montre-moi des photos de Levana"
+   - "Parle-moi de ses projets"
+
+L'agent peut ouvrir/fermer des fenêtres de contenu (markdown, galerie, HTML).
+
+## Contraintes de développement
+
+- Aucun fichier > 100 lignes (sauf `data/`)
+- Code modulaire et typé (TypeScript)
+- Design affirmé (couleurs, ombres, animations)
+
+## Technologies
+
+- React 19 + TypeScript
+- Vite
+- Tailwind CSS v4
+- Framer Motion
+- Zustand
+- Hono
+- OpenRouter (Claude 3.5 Haiku)
+
+## License
+
+MIT
+
