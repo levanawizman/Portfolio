@@ -38,14 +38,14 @@ J'adore explorer les nouvelles technologies et créer des interfaces qui surpren
     'Open source',
   ],
 
-  // Infos supplémentaires (client)
+  // Infos supplémentaires pour enrichir les prompts
   location: 'Paris, France',
   languages: ['Français (natif)', 'Anglais (courant)'],
-  style: 'Design moderne, minimaliste, avec une touche artistique.',
+  style: 'Design moderne, minimaliste, avec une touche artistique (gradients, blur, 3D subtle).',
   achievements: [
-    'Micro-interactions primées sur Dribbble',
-    'Design system refondu (600+ composants)',
-    'Expériences WebGL mises en avant',
+    'Création de micro-interactions primées sur Dribbble',
+    'Refonte d’un design system pour une startup (600+ composants)',
+    'Expériences WebGL/Three.js publiées et relayées sur Twitter/X',
   ],
   values: ['Accessibilité', 'Performance', 'Simplicité', 'Créativité'],
   urls: {

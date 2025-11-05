@@ -9,7 +9,9 @@ Portfolio interactif 2D avec agent IA (Claude 3.5 Haiku via OpenRouter).
 - 🪟 Système de fenêtres draggable avec z-index dynamique
 - ✨ Animations fluides (Framer Motion)
 - 🎯 Design moderne avec Tailwind v4
-- 🔒 Sandbox sécurisé pour HTML généré par l'IA
+- 🎭 **Fenêtres HTML créatives** : L'agent peut générer du HTML/CSS/JS avec animations, effets 3D, Canvas, etc.
+- 🔒 Sandbox sécurisé pour HTML généré par l'IA (scripts autorisés)
+ - 💡 Suggestions sous la barre de prompt (préclic pour lancer des idées)
 
 ## Structure
 
@@ -28,6 +30,7 @@ server/
 ├── env.ts          # Configuration env
 ├── openrouter.ts   # Client OpenRouter + tools
 ├── schema.ts       # Schémas Zod
+├── prompts/        # Prompts externalisés (base .md + builder)
 ├── routes.ts       # Routes Hono
 └── index.ts        # Serveur
 ```
@@ -61,12 +64,28 @@ Le serveur démarre sur `http://localhost:3001`
 
 1. Les cartes projets sont déplaçables à la souris
 2. La barre de commande en bas permet d'interagir avec l'agent
-3. Exemples de requêtes :
-   - "C'est qui Levana ?"
-   - "Montre-moi des photos de Levana"
-   - "Parle-moi de ses projets"
+3. Les fenêtres créées sont **déplaçables** (drag & drop) et **fermables** (bouton ❌)
 
-L'agent peut ouvrir/fermer des fenêtres de contenu (markdown, galerie, HTML).
+### Exemples de requêtes :
+
+**Informations :**
+- "C'est qui Levana ?"
+- "Montre-moi des photos de Levana"
+- "Parle-moi de ses compétences"
+
+**Créations interactives :**
+- "Crée une animation de particules"
+- "Fais une carte de visite avec effet 3D"
+- "Montre-moi un compteur animé"
+- "Crée un effet de texte glitch"
+- "Fais une horloge analogique animée"
+
+L'agent peut générer des fenêtres avec :
+- **Markdown** : Contenu texte formaté
+- **Galerie** : Photos de Levana
+- **HTML créatif** : Animations CSS, JavaScript, Canvas, effets 3D, etc.
+
+Voir `EXAMPLES.md` pour plus d'exemples créatifs.
 
 ## Contraintes de développement
 

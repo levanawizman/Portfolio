@@ -75,8 +75,8 @@ export async function chat(messages: Array<{ role: string; content: string }>) {
     messages,
     tools,
     tool_choice: 'auto',
-    max_tokens: 512,
-    temperature: 0.7,
+    max_tokens: 2048,
+    temperature: 0.8,
   } as const;
 
   const response = await fetch(OPENROUTER_URL, {

@@ -27,11 +27,9 @@ export function CommandBar() {
   const cards = useCards();
   const { addWindow, updateWindow, closeWindow } = useStore();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || loading) return;
-
-    const userMsg = input.trim();
+  const send = async (text: string) => {
+    const userMsg = text.trim();
+    if (!userMsg || loading) return;
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
@@ -64,6 +62,11 @@ export function CommandBar() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await send(input);
+  };
+
   const executeTool = (name: string, args: any) => {
     if (name === 'open_window') {
       addWindow(args);
@@ -75,6 +78,15 @@ export function CommandBar() {
       setMessages((prev) => [...prev, { role: 'assistant', content: args.text }]);
     }
   };
+
+  const suggestions: string[] = [
+    "Crée une animation de particules colorées",
+    "Ouvre une galerie avec les photos de Levana",
+    "Affiche la bio de Levana en markdown",
+    "Crée un effet de texte glitch en HTML/CSS/JS",
+    "Fais une carte de visite 3D au survol",
+    "Montre un compteur animé des compétences",
+  ];
 
   return (
     <Surface className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[600px] p-4">
@@ -107,6 +119,21 @@ export function CommandBar() {
           <Icon name="send" />
         </button>
       </form>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {suggestions.map((s, i) => (
+          <button
+            key={i}
+            disabled={loading}
+            onClick={() => send(s)}
+            className="px-3 py-1.5 rounded-full text-sm
+                       bg-slate-700/60 hover:bg-slate-600/60
+                       text-slate-200 border border-white/10
+                       transition-colors"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
     </Surface>
   );
 }
