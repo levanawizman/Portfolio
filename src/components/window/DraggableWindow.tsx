@@ -27,7 +27,7 @@ export function DraggableWindow({
       drag
       dragMomentum={false}
       dragElastic={0}
-      onDragStart={(_, info) => {
+      onDragStart={() => {
         dragRef.current = { startX: window.x, startY: window.y };
         onFocus();
       }}
